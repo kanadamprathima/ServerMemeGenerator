@@ -54,7 +54,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          memeId: 1,
+          memeId: 2,
           userId: 3,
           createdAt: new Date(),
           updatedAt: new Date(),
