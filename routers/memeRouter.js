@@ -62,4 +62,12 @@ router.delete("/fav/:id", authMiddleware, async (req, res, next) => {
     next(e.message);
   }
 });
+//fetch favorite
+router.get("/:id", async (request, response) => {
+  const { id } = request.params;
+  const getFavs = await Favorite.findAll({ where: { userId: id } });
+  console.log("all favs", getFavs);
+  response.send(getFavs);
+});
+
 module.exports = router;
