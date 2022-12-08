@@ -12,14 +12,16 @@ router.get("/", async (request, response) => {
   console.log("all memes", getMemes);
   response.send(getMemes);
 });
-router.post("/", async (req, res, next) => {
+//Post a new meme
+router.post("/", authMiddleware, async (req, res, next) => {
   try {
     const imgUrl = req.body.imgUrl;
     if (!imgUrl) {
       res.status(400).send("Must provide an image address");
     } else {
-      const meme = await Meme.create({ imgUrl });
-      res.json(meme);
+      const newMeme = await Meme.create({ imgUrl, uesrId: req.user.id });
+      res.json(newMeme);
+      return res.status(201).send({ message: "New Meme created", newMeme });
     }
   } catch (e) {
     next(e);
